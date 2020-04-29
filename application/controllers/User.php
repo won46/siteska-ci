@@ -58,8 +58,17 @@ class User extends CI_Controller
                 'date_created' => time()
             ];
 
+            // siapkan token
+            $token = base64_encode(random_bytes(32));
+            $user_token = [
+                'email' => $email,
+                'token' => $token,
+                'date_created' => time()
+            ];
+
 
             $this->db->insert('user', $data);
+            $this->db->insert('user_token', $user_token);
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New user added</div>');
             redirect('user/master');
@@ -67,17 +76,15 @@ class User extends CI_Controller
     }
 
 
-    function delete_user($id)
+    function delete_user($email)
     {
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $sql = "DELETE user,user_token
+         FROM user,user_token
+        WHERE user.email=user_token.email 
+        AND user.email= ?";
 
-        $where = array('id' => $id);
-        $where2 = array('email' => $data);
-
-
-        $this->User_model->deleteUser($where, 'user');
-        $this->User_model->deleteUser($where2, 'user_token');
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Delete User Succees!</div>');
+        $this->db->query($sql, array($email));
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Delete user and token succees!</div>');
         redirect('user/master');
     }
 
@@ -131,6 +138,16 @@ class User extends CI_Controller
         }
     }
 
+    function edit_user()
+    {
+        $id = $this->input->post('id');
+        $data = array(
+            'role'  => $this->input->post('role'),
+        );
+        $this->Admin_model->editRole($data, $id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Edit role Succees! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        redirect('admin/role');
+    }
 
     public function changePassword()
     {

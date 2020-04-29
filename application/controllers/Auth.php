@@ -97,7 +97,7 @@ class Auth extends CI_Controller
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
-                'is_active' => 0,
+                'is_active' => 1,
                 'date_created' => time()
             ];
 
@@ -112,7 +112,7 @@ class Auth extends CI_Controller
             $this->db->insert('user', $data);
             $this->db->insert('user_token', $user_token);
 
-            $this->_sendEmail($token, 'verify');
+            //$this->_sendEmail($token, 'verify');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! your account has been created. Please activate your account</div>');
             redirect('auth');
@@ -125,8 +125,8 @@ class Auth extends CI_Controller
         $config = [
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'wonn46@gmail.com',
-            'smtp_pass' => '1234567890',
+            'smtp_user' => 'ideasteam@gmail.com',
+            'smtp_pass' => 'ideas666666',
             'smtp_port' => 465,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
@@ -135,7 +135,7 @@ class Auth extends CI_Controller
 
         $this->email->initialize($config);
 
-        $this->email->from('wonn46@gmail.com', 'SITESKA');
+        $this->email->from('ideasteam@gmail.com', 'SITESKA');
         $this->email->to($this->input->post('email'));
 
         if ($type == 'verify') {

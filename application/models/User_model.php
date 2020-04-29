@@ -12,6 +12,18 @@ class User_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+
+    public function getUser_token($email)
+    {
+        $query = "SELECT `user`.*, `user_token`.`email`
+         FROM `user` JOIN `user_token` 
+         ON `user`.`email` = `user_token`.`email` 
+         where user.id=$email
+        ";
+        return $this->db->query($query)->result_array();
+    }
+
+
     function deleteUser($where, $table)
     {
         $this->db->where($where);

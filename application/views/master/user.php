@@ -42,7 +42,7 @@
                             </td>
                             <td>
                                 <a href="" class="badge badge-success">edit</a>
-                                <a href="<?= base_url('admin/delete_role/' . $r['id']); ?>" class="badge badge-danger" onclick="return confirm('are you sure?');">delete</a>
+                                <a href="<?= base_url('user/delete_user/' . $u['email']); ?>" class="badge badge-danger" onclick="return confirm('are you sure?');">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
