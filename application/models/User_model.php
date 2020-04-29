@@ -11,4 +11,17 @@ class User_model extends CI_Model
                 ";
         return $this->db->query($query)->result_array();
     }
+
+    function deleteUser($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
+    function editUser($data, $id)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('user_role', $data);
+        return TRUE;
+    }
 }

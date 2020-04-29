@@ -86,8 +86,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">Edit Data</h4>
+                <h5 class="modal-title" id="newRoleModalLabel">Edit Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <form class="form-horizontal" action="<?php echo base_url('admin/edit_role') ?>" method="post" enctype="multipart/form-data" role="form">
                 <div class="modal-body">

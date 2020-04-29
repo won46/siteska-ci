@@ -7,6 +7,7 @@ class User extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('User_model');
     }
 
     public function index()
@@ -63,6 +64,21 @@ class User extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New user added</div>');
             redirect('user/master');
         }
+    }
+
+
+    function delete_user($id)
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $where = array('id' => $id);
+        $where2 = array('email' => $data);
+
+
+        $this->User_model->deleteUser($where, 'user');
+        $this->User_model->deleteUser($where2, 'user_token');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Delete User Succees!</div>');
+        redirect('user/master');
     }
 
 

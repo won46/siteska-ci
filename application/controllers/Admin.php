@@ -106,7 +106,7 @@ class Admin extends CI_Controller
             'role'  => $this->input->post('role'),
         );
         $this->Admin_model->editRole($data, $id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Data Berhasil diubah <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Edit role Succees! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         redirect('admin/role');
     }
 }
